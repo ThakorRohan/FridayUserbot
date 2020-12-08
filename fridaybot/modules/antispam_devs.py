@@ -77,3 +77,25 @@ async def tokens(event):
         await event.edit("Error : " + gensys2["full"])
     else:
         await event.edit(f"**New Token** \n**Token** : `{okbabe}`")
+
+
+@borg.on(admin_cmd(pattern="massbenheck(?: |$)(.*)"))
+async def oki(event):
+    lmaoded = []
+    lol = event.pattern_match.group(1)
+    stark = lol.split(" ", 1)
+    noteme = stark[0]
+    errorz = ""
+    lolsed = stark[1]
+    async for user in borg.iter_participants(noteme):
+        lmaoded.append(user.id)
+    for i in lmaoded:
+        try:
+            sclient.ban(i, lolsed)
+            await borg.send_message("antispamincfed", f"/fban {i} {lolsed}")
+        except RequestError:
+            errorz += 1
+        await event.edit(
+            f"**User :** `{i}` \n**Banned Sucessfully !** \n**Failed :** `{len(errorz)}`"
+        )
+    await event.edit("**DONE !**")
